@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form</title>
+</head>
+<body>
+    <h2>Employee Form</h2>
+
+    <!-- Embed your Google Form here -->
+    <form action="YOUR_GOOGLE_FORM_URL" method="post">
+        <!-- Employee Name -->
+        <label for="employee-name">Employee Name:</label>
+        <input type="text" id="employee-name" name="entry.12345678"><br><br>
+
+        <!-- Hidden fields to store Time and Location -->
+        <input type="hidden" id="current-time" name="entry.98765432">
+        <input type="hidden" id="current-location" name="entry.11223344">
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Function to get the current time
+        function getCurrentTime() {
+            var currentTime = new Date().toLocaleString(); // Get time in local format
+            document.getElementById("current-time").value = currentTime; // Set the time in the hidden input field
+        }
+
+        // Function to get the user's current location
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var location = "Latitude: " + latitude + ", Longitude: " + longitude;
+                    document.getElementById("current-location").value = location; // Set the location in the hidden input field
+                }, function() {
+                    alert("Unable to retrieve your location.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Execute functions on page load
+        window.onload = function() {
+            getCurrentTime();  // Get the current time
+            getLocation();     // Get the current location
+        };
+    </script>
+</body>
+</html>
